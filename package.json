@@ -1,0 +1,32 @@
+{
+  "name": "gitblockchain",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/debrajpaul/gitblockchain.git",
+  "author": "Debraj <debraj.p@corp.tripborn.com>",
+  "license": "MIT",
+  "scripts": {
+    "debug": "DEBUG=app,app:* nodemon src/app.js --exec babel-node --presets=@babel/preset-env --inspect"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.51",
+    "ajv": "^6.5.1",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "debug": "^3.1.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.0",
+    "morgan": "^1.9.0",
+    "sha256": "^0.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.51",
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/node": "^7.0.0-beta.51",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.51",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "nodemon": "^1.17.5"
+  }
+}
