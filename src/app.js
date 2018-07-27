@@ -1,24 +1,31 @@
-import Blockchain from "../src/entities/blockchain-entities";
+require("dotenv").config();
+import cors from "cors";
+import morgan from "morgan";
+import express from "express";
+import bodyParser from "body-parser";
+const debug = require("debug")("app");
+import blockchain_routes from "../src/routes/blockchain-routes";
 
-const bitcoin = new Blockchain();
+const app = express();
+let { PORT } = process.env;
+if (!PORT) {
+  console.error("FATAL ERROR : Port is not defind! Please check .env setting");
+  process.exit(1);
+}
 
-const previousBlockHash = "724398y21h34f902786t21908rfyg2";
-const currentBlockData = [
-  {
-    amount: 10,
-    sender: "adjflwqjfnwqj",
-    recipient: "ijpwiujvpwiu"
-  },
-  {
-    amount: 50,
-    sender: "adjflwqjfnwqj",
-    recipient: "ijpwiujvpwiu"
-  },
-  {
-    amount: 200,
-    sender: "adjflwqjfnwqj",
-    recipient: "ijpwiujvpwiu"
+app.use(cors());
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(morgan("tiny", { stream: { write: msg => debug(msg) } }));
+
+// append prefix to every router
+app.use("/blockchainApi", blockchain_routes);
+
+app.get("/", (req, res) => {
+  res.send("<H2>Blockchain portal backend is up and running</H2>");
+});
+
+app.listen(PORT, err => {
+  if (!err) {
+    debug(`listenning on port ${PORT}`);
   }
-];
-
-console.log(bitcoin.proofOfWork(previousBlockHash, currentBlockData));
+});
