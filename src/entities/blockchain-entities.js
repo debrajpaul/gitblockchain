@@ -1,9 +1,12 @@
+require("dotenv").config();
 import sha256 from "sha256";
-
+import uuid from "uuid/v1";
 export default class Blockchain {
   constructor() {
     this.chain = [];
     this.pendingTransactions = [];
+    this.currentNodeUrl = process.env.SELF_URL;
+    this.networkNodes = [];
     this.createNewBlock(100, "0", "0");
   }
 
@@ -29,11 +32,15 @@ export default class Blockchain {
     const newTransaction = {
       amount: amount,
       sender: sender,
-      recipient: recipient
+      recipient: recipient,
+      transactionId: uuid()
+        .split("-")
+        .join("")
     };
-    this.pendingTransactions.push(newTransaction);
-    return this.getLastBlock()["index"] + 1;
+    return newTransaction;
   }
+
+  addTransactionToPendingTransactions() {}
 
   hashBlock(previousBlockHash, currentBlockData, nonce) {
     const dataAsString = `${previousBlockHash}${nonce.toString()}${JSON.stringify(

@@ -6,11 +6,17 @@
   "author": "Debraj <debraj.p@corp.tripborn.com>",
   "license": "MIT",
   "scripts": {
-    "debug": "DEBUG=app,app:* nodemon src/app.js --exec babel-node --presets=@babel/preset-env --inspect"
+    "debug": "DEBUG=app,app:* nodemon src/app.js --exec babel-node --presets=@babel/preset-env --inspect",
+    "node_1": "DEBUG=app,app:* PORT=3051 SELF_URL=http://localhost:3051 nodemon src/app.js --exec babel-node --presets=@babel/preset-env ",
+    "node_2": "DEBUG=app,app:* PORT=3052 SELF_URL=http://localhost:3052 nodemon src/app.js --exec babel-node --presets=@babel/preset-env ",
+    "node_3": "DEBUG=app,app:* PORT=3053 SELF_URL=http://localhost:3053 nodemon src/app.js --exec babel-node --presets=@babel/preset-env ",
+    "node_4": "DEBUG=app,app:* PORT=3054 SELF_URL=http://localhost:3054 nodemon src/app.js --exec babel-node --presets=@babel/preset-env ",
+    "node_5": "DEBUG=app,app:* PORT=3055 SELF_URL=http://localhost:3055 nodemon src/app.js --exec babel-node --presets=@babel/preset-env "
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.51",
     "ajv": "^6.5.1",
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "debug": "^3.1.0",
