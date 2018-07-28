@@ -10,12 +10,12 @@ export default class Blockchain {
     this.createNewBlock(100, "0", "0");
   }
 
-  createNewBlock(nonce, previousBlockHash, hash) {
+  createNewBlock(nonce1, previousBlockHash, hash) {
     const newBlock = {
       index: this.chain.length + 1,
       timestamp: Date.now(),
       transactions: this.pendingTransactions,
-      nonce: nonce,
+      nonce: nonce1,
       hash: hash,
       previousBlockHash: previousBlockHash
     };
@@ -40,7 +40,10 @@ export default class Blockchain {
     return newTransaction;
   }
 
-  addTransactionToPendingTransactions() {}
+  addTransactionToPendingTransactions(transactionObj) {
+    this.pendingTransactions.push(transactionObj);
+    return this.getLastBlock()["index"] + 1;
+  }
 
   hashBlock(previousBlockHash, currentBlockData, nonce) {
     const dataAsString = `${previousBlockHash}${nonce.toString()}${JSON.stringify(
@@ -58,5 +61,33 @@ export default class Blockchain {
       hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
     }
     return nonce;
+  }
+
+  chainIsValid(blockchain) {
+    let validChain = true;
+    for (let i = 1; i < blockchain.length; i++) {
+      const blockHash = this.hashBlock(
+        blockchain[i - 1]["hash"],
+        {
+          transactions: blockchain[i]["transactions"],
+          index: blockchain[i]["index"]
+        },
+        blockchain[i]["nonce"]
+      );
+      if (blockHash.substring(0, 4) !== "0000") validChain = false;
+      if (blockchain[i]["previousBlockHash"] !== blockchain[i - 1]["hash"])
+        validChain = false;
+      console.log(`currentBlockHash=>  ${blockchain[i - 1]["hash"]}`);
+      console.log(`previousBlockHash=>  ${blockchain[i]["previousBlockHash"]}`);
+    }
+    const genesisBlock = blockchain[0];
+    if (
+      !(genesisBlock["nonce"] === 100) ||
+      !(genesisBlock["previousBlockHash"] === "0") ||
+      !(genesisBlock["hash"] === "0") ||
+      !(genesisBlock["transactions"].length === 0)
+    )
+      validChain = false;
+    return validChain;
   }
 }
