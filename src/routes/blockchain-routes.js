@@ -16,6 +16,7 @@ import Blockchain from "../entities/blockchain-entities";
 import axios from "../utils/axios-helper";
 import uuid from "uuid/v1";
 import { Promise } from "core-js";
+import path from "path";
 
 const router = express.Router();
 const bitcoin = new Blockchain();
@@ -284,6 +285,60 @@ router.get("/consensus", (req, res) => {
       res.json(fail(e.message));
     }
   })();
+});
+
+// blockchain code
+router.get("/block/:blockHash", (req, res) => {
+  try {
+    res.json(success(bitcoin.getBlock(req.params.blockHash)));
+  } catch (e) {
+    console.log(e);
+    res.json(fail(e.message));
+  }
+});
+
+// blockchain code
+router.get("/transaction/:transactionId", (req, res) => {
+  try {
+    const data = bitcoin.getTransaction(req.params.transactionId);
+    res.json(
+      success({
+        transaction: data.transaction,
+        block: data.block
+      })
+    );
+  } catch (e) {
+    console.log(e);
+    res.json(fail(e.message));
+  }
+});
+
+// blockchain code
+router.get("/address/:address", (req, res) => {
+  try {
+    const data = bitcoin.getAddressData(req.params.address);
+    res.json(
+      success({
+        addressTransactions: data.addressTransactions,
+        addressBalance: data.addressBalance
+      })
+    );
+  } catch (e) {
+    console.log(e);
+    res.json(fail(e.message));
+  }
+});
+
+// blockchain code
+router.get("/block-explorer", (req, res) => {
+  try {
+    res.sendFile("index.html", {
+      root: path.join(__dirname, "../block-explorer")
+    });
+  } catch (e) {
+    console.log(e);
+    res.json(fail(e.message));
+  }
 });
 
 export default router;
