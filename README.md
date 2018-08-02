@@ -21,26 +21,14 @@ Server Configuration:-
 Dependencies
 
     All dependencies are listed in package.json file
-
-Database configuration:-
-
-    Import the GenericAppBetaSchema.sql into you Database from bitbucket.
-    Change the password in config.xml.
-
-How to run tests:-
-
-    Import the GenericApiJunitTestCase file to eclipse IDE from git clone directory.
-    Run as JUnit Test or
-    javac MessageUtil.java TestJunit.java [test class name]
-    java [test class name]
+    * Install yarn (link:- https://yarnpkg.com/lang/en/docs/install/#debian-stable)
+    * In terminal type "yarn" to add all dependencies.
 
 Deployment instructions:-
 
-    Copy all the folder in <tomcat8 path>/webapps/GenericAppBeta/GenericImage to home directory.
-    Delete the both or anyone .war file depends on ui or api changes.
-    Copy the .war file to <tomcat8 path>/webapps/ directory
-    Copy all the image folder to newly deploy war generate directory i.e <tomcat8 path>/webapps/GenericAppBeta/GenericImage
-    restart the tomcat8
+    In terminal go to you project directory
+    type "yarn node_1"
+    similarly run node_2, node_3, node_4, node_5
 
 Who do I talk to?
 
