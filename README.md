@@ -1,4 +1,4 @@
-# Blockchain Api Interface
+# Blockchain Api Interface (POC)
 
 Following steps are necessary to get your application up and running.
 
